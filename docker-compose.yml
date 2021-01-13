@@ -20,7 +20,7 @@ services:
   graphql-engine:
     # image: hasura/graphql-engine:v1.3.3 # Go with Stable?
     image: hasura/graphql-engine:v1.3.4-beta.2 # Go with Beta?
-    container_name: bobblemix_hasura
+    container_name: app_hasura
     ports:
       - "8080:8080"
     # networks:
