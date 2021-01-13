@@ -16,7 +16,7 @@ curl https://raw.githubusercontent.com/rmsrob/hasura_docker/docker-compose.yaml 
 
 ```bash
 PGSQL_HOST="app_pgsql"
-PGSQL_PORT=54321
+PGSQL_PORT=5432
 POSTGRES_DB="postgres"
 POSTGRES_USER="postgres"
 POSTGRES_PASSWORD="postgres"
