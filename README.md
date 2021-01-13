@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-curl https://raw.githubusercontent.com/rmsrob/hasura_docker/docker-compose.yaml -o docker-compose.yml
+curl https://raw.githubusercontent.com/rmsrob/hasura_docker/master/docker-compose.yml -o docker-compose.yml
 ```
 
 ## Prerequisite
