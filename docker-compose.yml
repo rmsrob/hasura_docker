@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:12
+    container_name: ${PGSQL_HOST}
+    ports:
+      - "${PGSQL_PORT}:5432"
+    # networks:
+    #   - external-app-proxy
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  graphql-engine:
+    # image: hasura/graphql-engine:v1.3.3 # Go with Stable?
+    image: hasura/graphql-engine:v1.3.4-beta.2 # Go with Beta?
+    container_name: bobblemix_hasura
+    ports:
+      - "8080:8080"
+    # networks:
+    #   - external-app-proxy
+    depends_on:
+      - "postgres"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${PGSQL_HOST}:5432/${POSTGRES_DB}
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      HASURA_GRAPHQL_DEV_MODE: "true" #disable this in production
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN}
+
+# networks:
+#   external-app-proxy:
+#     external:
+#       name: app-netrunner
+
+volumes:
+  db_data:
